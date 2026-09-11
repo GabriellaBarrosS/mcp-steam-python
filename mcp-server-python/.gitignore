@@ -1,0 +1,10 @@
+# Variáveis de ambiente
+.env
+
+# Ambiente virtual Python
+venv/
+__pycache__/
+*.pyc
+
+# Diversos
+.DS_Store
