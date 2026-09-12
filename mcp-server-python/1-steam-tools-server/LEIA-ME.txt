@@ -1,0 +1,19 @@
+STEAM TOOLS SERVER (as 6 ferramentas)
+======================================
+
+1. Renomeie .env.example para .env e cole sua STEAM_API_KEY
+   (pegue gratis em https://steamcommunity.com/dev/apikey)
+
+2. No terminal, DENTRO desta pasta:
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
+   python server.py
+
+3. Deve aparecer: "Uvicorn running on http://0.0.0.0:8090"
+
+4. Em OUTRO terminal, exponha para a internet:
+   ngrok http 8090
+   Copie a URL https que aparecer (ex: https://xxxx.ngrok-free.app)
+
+5. Use essa URL + "/mcp" no final na pasta "2-steam-chatbot" (arquivo .env, campo STEAM_MCP_URL)

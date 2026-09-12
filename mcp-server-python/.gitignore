@@ -3,8 +3,13 @@
 
 # Ambiente virtual Python
 venv/
+**/venv/
 __pycache__/
+**/__pycache__/
 *.pyc
+
+# ngrok
+ngrok.exe
 
 # Diversos
 .DS_Store

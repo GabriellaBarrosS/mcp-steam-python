@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from mcp.server.fastmcp import FastMCP
+from mcp.server.transport_security import TransportSecuritySettings
 
 # Configuração
 
@@ -24,6 +25,15 @@ if not STEAM_API_KEY:
 mcp = FastMCP(
     name="steam-mcp",
     stateless_http=True,  # cada chamada é independente e não precisa de sessão
+    # Desliga a proteção de "DNS rebinding" do SDK do MCP (versões mais
+    # novas ligam isso por padrão e só aceitam Host: localhost/127.0.0.1).
+    # Sem isso, requisições vindas pelo ngrok (Host: xxxx.ngrok-free.dev)
+    # são rejeitadas com "421 Misdirected Request". Como esse servidor só
+    # é exposto via túnel do ngrok para uso pessoal/teste, é seguro
+    # desativar essa checagem específica de Host.
+    transport_security=TransportSecuritySettings(
+        enable_dns_rebinding_protection=False,
+    ),
 )
 
 # Helpers internos
