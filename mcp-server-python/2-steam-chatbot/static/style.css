@@ -1,107 +1,304 @@
-/* Estilos gerais */
+/* ============ Tokens ============ */
+:root {
+    --bg-deep: #12101c;
+    --bg-panel: #1b1830;
+    --bg-header: linear-gradient(120deg, #241f3d 0%, #2d2350 100%);
+    --accent-cyan: #6ee7ff;
+    --accent-lilac: #b18cff;
+    --accent-pink: #ff9ecf;
+    --text-main: #f1eefc;
+    --text-muted: #a89fc9;
+    --bubble-ai: #241f3d;
+    --bubble-user: linear-gradient(135deg, #7c5cff 0%, #b18cff 100%);
+    --online-green: #57e39a;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* ============ Base ============ */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
+    font-family: var(--font-body);
+    background: var(--bg-deep);
+    background-image:
+        radial-gradient(circle at 20% 15%, rgba(177, 140, 255, 0.16), transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(110, 231, 255, 0.12), transparent 40%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 32px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 32px);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    color: var(--text-main);
 }
 
-/* Container principal do chat */
+/* ============ Container principal ============ */
 #chat-container {
     width: 100%;
-    max-width: 600px;
+    max-width: 620px;
     height: 90vh;
-    max-height: 800px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 820px;
+    background-color: var(--bg-panel);
+    border-radius: 20px;
+    border: 1px solid rgba(177, 140, 255, 0.25);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+        0 20px 60px rgba(0, 0, 0, 0.45),
+        0 0 40px rgba(110, 231, 255, 0.08);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
+/* ============ Header ============ */
 #chat-header {
-    background-color: #075e54;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    font-size: 1.2rem;
-    border-bottom: 1px solid #ddd;
+    background: var(--bg-header);
+    color: var(--text-main);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(177, 140, 255, 0.2);
 }
 
-/* Caixa de exibição das mensagens */
+#chat-header-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-lilac));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+#chat-header-info h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.2px;
+}
+
+#status-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+#status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--online-green);
+    box-shadow: 0 0 8px var(--online-green);
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* ============ Caixa de mensagens ============ */
 #chat-box {
     flex-grow: 1;
-    padding: 20px;
+    padding: 22px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    background-color: #e5ddd5;
+    gap: 14px;
 }
 
-/* Estilo base para cada balão de mensagem */
+#chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+    background: rgba(177, 140, 255, 0.3);
+    border-radius: 8px;
+}
+
+/* ============ Balões de mensagem ============ */
 .message {
-    padding: 10px 15px;
-    border-radius: 18px;
-    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    max-width: 80%;
     word-wrap: break-word;
+    line-height: 1.5;
+    font-size: 0.96rem;
+    animation: pop-in 0.18s ease-out;
+}
+
+@keyframes pop-in {
+    from { opacity: 0; transform: translateY(4px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .message p {
-    margin: 0;
+    margin: 0 0 8px 0;
+}
+
+.message p:last-child {
+    margin-bottom: 0;
+}
+
+.message ul,
+.message ol {
+    margin: 4px 0 8px 0;
+    padding-left: 22px;
+}
+
+.message ul:last-child,
+.message ol:last-child {
+    margin-bottom: 0;
+}
+
+.message li {
+    margin-bottom: 4px;
+}
+
+.message strong {
+    color: var(--accent-cyan);
+    font-weight: 700;
+}
+
+.message a {
+    color: var(--accent-cyan);
+    text-decoration: underline;
 }
 
 /* Mensagem do usuário (à direita) */
 .user-message {
-    background-color: #dcf8c6;
+    background: var(--bubble-user);
+    color: #211546;
     align-self: flex-end;
     border-bottom-right-radius: 4px;
+    box-shadow: 0 4px 16px rgba(124, 92, 255, 0.35);
+}
+
+.user-message strong {
+    color: #12101c;
 }
 
 /* Mensagem da IA (à esquerda) */
 .ai-message {
-    background-color: #ffffff;
+    background-color: var(--bubble-ai);
+    color: var(--text-main);
     align-self: flex-start;
     border-bottom-left-radius: 4px;
+    border: 1px solid rgba(110, 231, 255, 0.18);
 }
 
+/* Indicador de "digitando..." */
+.typing-indicator p {
+    color: var(--text-muted);
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
 
-/* Container do campo de digitação e botão */
+.typing-indicator p::after {
+    content: '●●●';
+    letter-spacing: 2px;
+    animation: blink-dots 1.2s infinite;
+    font-style: normal;
+    color: var(--accent-cyan);
+}
+
+@keyframes blink-dots {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* ============ Campo de digitação ============ */
 #input-container {
     display: flex;
-    padding: 15px;
-    border-top: 1px solid #ddd;
-    background-color: #f0f2f5;
+    padding: 16px;
+    border-top: 1px solid rgba(177, 140, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.02);
+    gap: 10px;
 }
 
 #user-input {
     flex-grow: 1;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 10px 15px;
-    font-size: 1rem;
+    border: 1px solid rgba(177, 140, 255, 0.3);
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 0.96rem;
+    font-family: var(--font-body);
     outline: none;
+    background-color: rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#user-input::placeholder {
+    color: var(--text-muted);
+}
+
+#user-input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 3px rgba(110, 231, 255, 0.18);
 }
 
 #send-button {
-    background-color: #128c7e;
-    color: white;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-lilac));
+    color: #12101c;
     border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    margin-left: 10px;
+    border-radius: 14px;
+    width: 48px;
+    height: 48px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    box-shadow: 0 4px 14px rgba(110, 231, 255, 0.35);
 }
 
 #send-button:hover {
-    background-color: #075e54;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(110, 231, 255, 0.5);
+}
+
+#send-button:active {
+    transform: translateY(0);
+}
+
+#send-button:disabled {
+    background: rgba(177, 140, 255, 0.25);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* ============ Responsivo ============ */
+@media (max-width: 640px) {
+    #chat-container {
+        height: 100vh;
+        max-height: none;
+        border-radius: 0;
+    }
+    body {
+        height: 100vh;
+    }
+}
+
+/* ============ Acessibilidade: reduz movimento se preferido ============ */
+@media (prefers-reduced-motion: reduce) {
+    .message, #status-dot, .typing-indicator p::after {
+        animation: none;
+    }
 }
