@@ -5,11 +5,7 @@ PRE-REQUISITO: a pasta "1-steam-tools-server" precisa estar RODANDO
 e exposta com ngrok antes de usar esse chatbot (senao ele so responde
 como um chat comum, sem saber nada de Steam).
 
-1. Renomeie .env.example para .env e preencha:
-   GROQ_API_KEY   -> pegue gratis em https://console.groq.com/keys
-   STEAM_MCP_URL  -> a URL do ngrok (pasta 1) + "/mcp" no final
-
-2. No terminal, DENTRO desta pasta:
+1. No terminal, DENTRO desta pasta:
    python -m venv venv
    venv\Scripts\activate
    pip install -r requirements.txt
@@ -18,6 +14,3 @@ como um chat comum, sem saber nada de Steam).
    (repare: aqui e "uvicorn server:app", NAO "python server.py")
 
 3. Deve aparecer: "Uvicorn running on http://127.0.0.1:8000"
-
-4. Abra o arquivo index.html (desta mesma pasta) clicando duas vezes
-   nele -- vai abrir no navegador. Digite sua pergunta e mande.
